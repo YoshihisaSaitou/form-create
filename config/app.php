@@ -1,5 +1,10 @@
 <?php
-define('PLUGIN_NAME', 'form_create');
+define('_DIR', __FILE__);
+define('PLUGIN_NAME', 'form-create');
+define('PLUGIN_NAME_TEXT', 'フォームクリエイト');
+
+//親メニュースラッグ名
+define('PARENT_SLUG_NAME', PLUGIN_NAME);
 
 //ページ名
 define('TOP_NAME', 'top');

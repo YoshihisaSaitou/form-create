@@ -1,6 +1,6 @@
 <?php
-require_once('conf/app.php');
-require_once('conf/utility.php');
+require_once('config/app.php');
+require_once('config/utility.php');
 
 /**
 * @package FormCreate
@@ -14,6 +14,8 @@ Version: 1.0
 Author: Yoshihisa Saito
 Author URI: https://github.com/YoshihisaSaitou/form-create
 License: GPL2
+Text Domain: form-create
+Domain Path: /languages/
 */
 class FormCreate{
     
@@ -69,20 +71,29 @@ class FormCreate{
         //$function  : 設定ページの出力を行う関数
         //$icon_url  : メニューに表示するアイコン
         //$position  : メニューの位置 ( 1 や 99 など )
-        add_menu_page( 'フォームクリエイト設定', 'フォームクリエイト設定', 'manage_options', LIST_PAGE_NAME, array( $this, 'listPage' ) );
+        add_menu_page(PLUGIN_NAME_TEXT, PLUGIN_NAME_TEXT, 'manage_options', PARENT_SLUG_NAME, array( $this, 'topPage' ) );
         
-        // 設定のサブメニューとしてメニューを追加する場合は下記のような形にします。
-        add_options_page( '新規追加', '新規追加', 'manage_options', CREATE_PAGE_NAME, array( $this, 'createPage' ) );
+        //サブメニュー
+        //$parent_slug:親メニューのスラッグ名。またはサブメニューを追加する先のトップレベルメニューを実装する標準 WordPress 管理ファイルのファイル名。またはサブメニューを追加する先のカスタムトップレベルメニューを実装するプラグインファイル
+        //$page_title:サブメニューが有効化された際にHTMLページタイトルに表示されるテキスト。
+        //$menu_title:サブメニューの管理画面上での名前。
+        //$capability:ユーザーがこのメニュー表示する際に必要な権限。
+        //$menu_slug:既存の WordPress メニューの場合、メニューページコンテンツ表示を処理する PHP ファイル。カスタムトップレベルメニューのサブメニューの場合、このサブメニューページの一意の識別子。プラグインが専用のトップレベルメニューを作成する場合、先頭のサブメニューは通常、トップレベルメニューと同じタイトルへのリンクを持つため、リンクが重複します。重複したリンクタイトルを回避するには、最初に parent_slug パラメータと menu_slug パラメータに同じ値を指定して add_submenu_page を呼び出します。
+        //$function:メニューページのコンテンツを表示する関数
+        add_submenu_page(PARENT_SLUG_NAME, PLUGIN_NAME_TEXT.'一覧',  '一覧', 'manage_options', LIST_PAGE_NAME, array( $this, 'listPage' ) );
+        //add_action( 'load-' . $list, 'listPage' );
+        add_submenu_page(PARENT_SLUG_NAME, PLUGIN_NAME_TEXT.'新規追加', '新規追加', 'manage_options', CREATE_PAGE_NAME, array( $this, 'createPage' ) );
+        //add_options_page( '新規追加', '新規追加', 'manage_options', CREATE_PAGE_NAME, array( $this, 'createPage' ) );
         
     }
     
     
     /**
-     * 設定ページのHTMLを出力
+     * トップページ
      */
-    //public function create_admin_page(){
-        //include_once('template/top.php');
-    //}
+    public function topPage(){
+        include_once('template/top.php');
+    }
     
     /**
      * 一覧ページ
