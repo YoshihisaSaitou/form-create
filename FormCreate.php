@@ -1,22 +1,38 @@
 <?php
-require_once('config/app.php');
-require_once('config/utility.php');
-
 /**
-* @package FormCreate
-* @version 1.0
-*/
+ * @package FormCreate
+ * @version 1.0
+ */
 /*
-Plugin Name: FormCreate
-Plugin URI: https://github.com/YoshihisaSaitou/form-create
-Description: フォーム作成プラグイン
-Version: 1.0
-Author: Yoshihisa Saito
-Author URI: https://github.com/YoshihisaSaitou/form-create
-License: GPL2
-Text Domain: form-create
-Domain Path: /languages/
-*/
+ Plugin Name: FormCreate
+ Plugin URI: https://github.com/YoshihisaSaitou/form-create
+ Description: フォーム作成プラグイン
+ Version: 1.0
+ Author: Yoshihisa Saito
+ Author URI: https://github.com/YoshihisaSaitou/form-create
+ License: GPL2
+ Text Domain: form-create
+ Domain Path: /languages/
+ */
+
+namespace FormCreate;
+
+require_once('config/App.php');
+require_once('config/Utility.php');
+require_once('config/Environment.php');
+
+require_once('controllers/BaseController.php');
+require_once('controllers/admin/AdminController.php');
+require_once('controllers/admin/TopController.php');
+
+use FormCreate\config\Environment;
+use FormCreate\controllers\admin\TopController;
+
+//echo Environment::PLUGIN_DIR;
+//echo getPluginRootDir();
+
+
+
 class FormCreate{
     
     public function __construct(){
@@ -25,6 +41,8 @@ class FormCreate{
         
         // メニューを追加
         add_action( 'admin_menu', array( $this, 'addMenu' ) );
+        
+        //echo Environment::getPluginRootDir();
     }
     
     /**
@@ -92,21 +110,22 @@ class FormCreate{
      * トップページ
      */
     public function topPage(){
-        include_once('template/top.php');
+        //echo Environment::getPluginRootDir();
+        include_once('views/admin/top.php');
     }
     
     /**
      * 一覧ページ
      */
     public function listPage(){
-        include_once('template/list.php');
+        include_once('views/admin/list.php');
     }
     
     /**
      * 新規追加ページ
      */
     public function createPage(){
-        include_once('template/create.php');
+        include_once('views/admin/create.php');
     }
  
     /**
