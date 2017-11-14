@@ -30,6 +30,16 @@ class Environment{
         
     }
     
+    /**
+     * WordPressルートディレクトリ取得
+     */
+    public static function getWordPressRootDir(){
+        return dirname(dirname(dirname( self::getPluginRootDir())));
+    }
+    
+    /**
+     * プラグインルートディレクトリ取得
+     */
     public static function getPluginRootDir(){
         return str_replace('config', '', __DIR__);
     }

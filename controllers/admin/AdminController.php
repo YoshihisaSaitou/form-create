@@ -2,26 +2,15 @@
 namespace FormCreate\controllers\admin;
 
 use FormCreate\config\Environment;
+//WordPressの必要ファイル読み込み
+//require_once(Environment::getWordPressRootDir().'/wp-load.php');
 use FormCreate\controllers\BaseController;
 
 abstract class AdminController extends BaseController{
     
     public function __construct(){
-        //add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
-        //$page_title: 設定ページの<title>部分
-        //$menu_title: メニューに使用されるテキスト
-        //$capability: 権限 ( 'manage_options' や 'administrator' など)
-        //$menu_slug : メニューのslug
-        //$function  : 設定ページの出力を行う関数
-        //$icon_url  : メニューに表示するアイコン
-        //$position  : メニューの位置 ( 1 や 99 など )
-        add_menu_page(
-            Environment::PLUGIN_NAME_TEXT,
-            Environment::PLUGIN_NAME_TEXT,
-            'manage_options',
-            Environment::PARENT_SLUG_NAME,
-            array( $this, 'topPage' )
-        );
+        // メニューを追加
+        add_action( 'admin_menu', array( self, 'addMenuPage' ) );
     }
     
     //abstract public function index(){
@@ -36,6 +25,65 @@ abstract class AdminController extends BaseController{
     }
     
     /**
+     * メニュー追加
+     * add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
+     * $page_title: 設定ページの<title>部分
+     * $menu_title: メニューに使用されるテキスト
+     * $capability: 権限 ( 'manage_options' や 'administrator' など)
+     * $menu_slug : メニューのslug
+     * $function  : 設定ページの出力を行う関数
+     * $icon_url  : メニューに表示するアイコン
+     * $position  : メニューの位置 ( 1 や 99 など )
+     */
+    public function addMenuPage($option = array()){
+        
+        $set_page_title = Environment::PLUGIN_NAME_TEXT;
+        if(!empty($option['page_title'])){
+            $set_page_title = $option['page_title'];
+        }
+        
+        $set_menu_title = Environment::PLUGIN_NAME_TEXT;
+        if(!empty($option['menu_title'])){
+            $set_menu_title = $option['menu_title'];
+        }
+        
+        $set_capability = 'manage_options';
+        if(!empty($option['capability'])){
+            $set_capability = $option['capability'];
+        }
+        
+        $set_menu_slug = Environment::PARENT_SLUG_NAME;
+        if(!empty($option['menu_slug'])){
+            $set_menu_slug = $option['menu_slug'];
+        }
+        
+        $set_function = array( self, 'topPage' );
+        if(!empty($option['function'])){
+            $set_function = $option['function'];
+        }
+        
+        $set_icon_url = '';
+        if(!empty($option['icon_url'])){
+            $set_icon_url = $option['icon_url'];
+        }
+        
+        $set_position = null;
+        if(!empty($option['position'])){
+            $set_position = $option['position'];
+        }
+        
+        add_menu_page(
+            $set_page_title,
+            $set_menu_title,
+            $set_capability,
+            $set_menu_slug,
+            $set_function,
+            $set_icon_url,
+            $set_position
+        );
+    }
+    
+    /**
      * サブメニュー追加
      * parent_slug:親メニューのスラッグ名。またはサブメニューを追加する先のトップレベルメニューを実装する標準 WordPress 管理ファイルのファイル名。またはサブメニューを追加する先のカスタムトップレベルメニューを実装するプラグインファイル
      * page_title:サブメニューが有効化された際にHTMLページタイトルに表示されるテキスト。
@@ -45,43 +93,43 @@ abstract class AdminController extends BaseController{
      * function:メニューページのコンテンツを表示する関数
      */
     public function addSubmenuPage($option = array()){
-        $parent_slug = Environment::PARENT_SLUG_NAME;
+        $set_parent_slug = Environment::PARENT_SLUG_NAME;
         if(!empty($option['parent_slug'])){
-            $parent_slug = $option['parent_slug'];
+            $set_parent_slug = $option['parent_slug'];
         }
         
-        $page_title = Environment::PLUGIN_NAME_TEXT.'一覧';
+        $set_page_title = Environment::PLUGIN_NAME_TEXT.'一覧';
         if(!empty($option['page_title'])){
-            $page_title = $option['page_title'];
+            $set_page_title = $option['page_title'];
         }
         
-        $menu_title = '';
+        $set_menu_title = '';
         if(!empty($option['menu_title'])){
-            $menu_title = $option['menu_title'];
+            $set_menu_title = $option['menu_title'];
         }
         
-        $capability = 'manage_options';
+        $set_capability = 'manage_options';
         if(!empty($option['capability'])){
-            $capability = $option['capability'];
+            $set_capability = $option['capability'];
         }
         
-        $menu_slug = Environment::LIST_PAGE_NAME;
+        $set_menu_slug = Environment::LIST_PAGE_NAME;
         if(!empty($option['menu_slug'])){
-            $menu_slug = $option['menu_slug'];
+            $set_menu_slug = $option['menu_slug'];
         }
         
-        $function = array( $this, 'listPage' );
+        $set_function = array( $this, 'listPage' );
         if(!empty($option['function'])){
-            $function = $option['function'];
+            $set_function = $option['function'];
         }
         
         add_submenu_page(
-            $parent_slug,
-            $page_title,
-            $menu_title,
-            $capability,
-            $menu_slug,
-            $function
+            $set_parent_slug,
+            $set_page_title,
+            $set_menu_title,
+            $set_capability,
+            $set_menu_slug,
+            $set_function
         );
     }
  
