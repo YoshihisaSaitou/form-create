@@ -1,4 +1,7 @@
 <?php
+/**
+ * 環境クラス
+ */
 namespace FormCreate\config;
 
 class Environment{

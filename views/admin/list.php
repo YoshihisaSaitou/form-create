@@ -1,5 +1,5 @@
 <?php
-
+/*
 if(!class_exists('WP_List_Table')){
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
@@ -10,7 +10,7 @@ class FormCreateListTable extends WP_List_Table {
         
     }
 }
-
+*/
 
 //設定値を取得
 //$this->options = get_option( 'test_setting' );

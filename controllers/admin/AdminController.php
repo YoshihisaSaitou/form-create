@@ -10,12 +10,22 @@ abstract class AdminController extends BaseController{
     
     public function __construct(){
         // メニューを追加
-        add_action( 'admin_menu', array( self, 'addMenuPage' ) );
+        add_action( 'admin_menu', array(self, 'addMenuPage' ));
+        
+        //CSS
+        add_action('admin_enqueue_scripts', array($this, 'enqueueStyle'));
     }
     
     //abstract public function index(){
         
     //}
+    
+    /**
+     * CSS読み込み
+     */
+    public function enqueueStyle(){
+        wp_enqueue_style(Environment::PLUGIN_NAME.'-style', plugin_dir_url(__FILE__) . 'css/style.css');
+    }
     
     /**
      * トップページ

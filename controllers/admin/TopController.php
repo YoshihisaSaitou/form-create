@@ -12,8 +12,7 @@ class TopController extends AdminController{
         //self::index();
     }
     
-    public function index(){
-        
-        $this->view('top.php');
-    }
+    //public function index(){
+    //    $this->view('top.php');
+    //}
 }
