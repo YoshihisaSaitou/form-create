@@ -15,7 +15,7 @@ Domain Path: /languages/
 */
 
 namespace FormCreate;
-
+//error_log('FormCreate start');
 //require_once('config/App.php');
 //require_once('config/Utility.php');
 //require_once('config/Environment.php');
@@ -32,6 +32,8 @@ namespace FormCreate;
 //}
 use FormCreate\config\Utility;
 use FormCreate\config\Environment;
+use FormCreate\controllers\BaseController;
+use FormCreate\controllers\EnqueueController;
 use FormCreate\controllers\admin\AdminController;
 use FormCreate\controllers\admin\TopController;
 use FormCreate\controllers\admin\CreateController;
@@ -39,12 +41,23 @@ use FormCreate\controllers\admin\DeleteController;
 use FormCreate\controllers\admin\EditController;
 use FormCreate\controllers\admin\ListController;
 
+require_once dirname(__FILE__).'/config/Environment.php';//WP_PLUGIN_DIR
+require_once Environment::getPluginRootDir().'controllers/BaseController.php';
+require_once Environment::getPluginRootDir().'controllers/EnqueueController.php';
+
+$enqueueController = new EnqueueController();
+$enqueueController->addAction();
+
+
+//include_once WP_PLUGIN_DIR.'/'.Environment::PLUGIN_NAME.'/controllers/EnqueueController.php';
+//$enqueueController = new EnqueueController();
+//echo Environment::getPluginRootDir();
 //add_action( 'admin_init', 'my_plugin_admin_init' );
-add_action( 'admin_enqueue_scripts', 'wpcf7_admin_enqueue_scripts' );
-function fc_admin_enqueue_scripts() {
+//add_action( 'admin_enqueue_scripts', 'wpcf7_admin_enqueue_scripts' );
+//function fc_admin_enqueue_scripts() {
 //    wp_register_style(Environment::PLUGIN_NAME.'-style', plugins_url('css/style.css', __FILE__) );
     //wp_enqueue_style();
-}
+//}
 //function enqueueStyle(){
 //    wp_enqueue_style(Environment::PLUGIN_NAME.'-style');
 //}
@@ -53,3 +66,4 @@ function fc_admin_enqueue_scripts() {
 //if( is_admin() ) {
 //    $form_create_page = new TopController();
 //}
+//error_log('FormCreate end');

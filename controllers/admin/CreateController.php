@@ -17,7 +17,6 @@ class CreateController extends AdminController{
     }
     
     public function index(){
-        
         $this->view('create.php');
     }
 }

@@ -9,11 +9,15 @@ use FormCreate\controllers\BaseController;
 abstract class AdminController extends BaseController{
     
     public function __construct(){
+        //CSS
+        //add_action('admin_init', array($this, 'adminInit'));
+        //add_action('admin_head', array($this, 'enqueueStyle'));
+        
+        //add_action('wp_enqueue_scripts', array($this, 'enqueueStyle'));
+        
         // メニューを追加
         add_action( 'admin_menu', array(self, 'addMenuPage' ));
         
-        //CSS
-        add_action('admin_enqueue_scripts', array($this, 'enqueueStyle'));
     }
     
     //abstract public function index(){
@@ -23,9 +27,13 @@ abstract class AdminController extends BaseController{
     /**
      * CSS読み込み
      */
-    public function enqueueStyle(){
-        wp_enqueue_style(Environment::PLUGIN_NAME.'-style', plugin_dir_url(__FILE__) . 'css/style.css');
-    }
+    //public function enqueueStyle(){
+        //$handle = Environment::PLUGIN_NAME.'-style';
+        //wp_enqueue_style(Environment::PLUGIN_NAME.'-style', plugins_url(Environment::PLUGIN_NAME.'/css/style.css'));
+        //wp_register_style(Environment::PLUGIN_NAME.'-style', plugins_url('css/style.css', __FILE__) );
+        //wp_enqueue_style(Environment::PLUGIN_NAME.'-style');
+        //wp_enqueue_style($handle, plugin_dir_url(__FILE__) . 'css/style.css');
+    //}
     
     /**
      * トップページ
@@ -33,6 +41,13 @@ abstract class AdminController extends BaseController{
     public function topPage(){
         $this->view('top.php');
     }
+    
+    /**
+     * 
+     */
+    //public function adminInit(){
+    //    wp_register_style(Environment::PLUGIN_NAME.'-style', plugins_url('css/style.css', __FILE__) );
+    //}
     
     /**
      * メニュー追加
@@ -46,7 +61,7 @@ abstract class AdminController extends BaseController{
      * $position  : メニューの位置 ( 1 や 99 など )
      */
     public function addMenuPage($option = array()){
-        
+        error_log('AdminController addMenuPage');
         $set_page_title = Environment::PLUGIN_NAME_TEXT;
         if(!empty($option['page_title'])){
             $set_page_title = $option['page_title'];
