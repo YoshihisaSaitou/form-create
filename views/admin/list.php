@@ -1,3 +1,4 @@
+<?php include_once 'common/header.php'; ?>
 <?php
 /*
 if(!class_exists('WP_List_Table')){
@@ -19,3 +20,4 @@ class FormCreateListTable extends WP_List_Table {
     <h1 class="wp-heading-inline"><?php echo esc_html(__('List一覧', PLUGIN_NAME)); ?></h1>
     
 </div>
+<?php include_once 'common/footer.php'; ?>

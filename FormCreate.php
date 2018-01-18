@@ -48,7 +48,6 @@ require_once Environment::getPluginRootDir().'controllers/EnqueueController.php'
 $enqueueController = new EnqueueController();
 $enqueueController->addAction();
 
-
 //include_once WP_PLUGIN_DIR.'/'.Environment::PLUGIN_NAME.'/controllers/EnqueueController.php';
 //$enqueueController = new EnqueueController();
 //echo Environment::getPluginRootDir();

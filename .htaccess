@@ -1,1 +1,5 @@
-Order Deny
+#Order Deny
+#<Files *.txt>
+#    Order deny,allow
+#    Deny from all
+#</Files>
